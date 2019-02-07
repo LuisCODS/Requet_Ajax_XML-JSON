@@ -1,14 +1,5 @@
-//GLOBAL
-var listeLivres = null; 
+var listeLivres=null; //accessible partout
 
-/*
-*
-* ======================================================================
-* Requette Ajax responsable pour aller chercher le fichier XML (livres.xml).
-
-* ======================================================================
-*
-*/
 function chargerXML(){
 	$.ajax({
 		url:"data/livres.xml",
@@ -22,13 +13,6 @@ function chargerXML(){
 	});
 }
 
-/*
-*
-* ======================================================================
-* 
-* ======================================================================
-*
-*/
 function listerXML(){
 	var isbn, titre, pages;
 	var tabLivres=listeLivres.getElementsByTagName("livre");
@@ -47,13 +31,7 @@ function listerXML(){
 	$('#contenu').html(rep);
 	$('#fenetre').toggle();
 }
-/*
-*
-* ======================================================================
-* 
-* ======================================================================
-*
-*/
+
 function listerJSON(){
 	var isbn, titre, pages;
 	var rep="";
@@ -72,13 +50,7 @@ function listerJSON(){
 	$('#contenu').html(rep);
 	$('#fenetre').toggle();
 }
-/*
-*
-* ======================================================================
-* POUR VOUS AMUSER...
-* ======================================================================
-*
-*/
+//POUR VOUS AMUSER
 function XMLtoJSON(){
 	rep="[";
 	var tabLivres=listeLivres.firstChild.childNodes;
@@ -98,7 +70,3 @@ function XMLtoJSON(){
 	}
 	alert(rep);
 }
-
-
-
-
