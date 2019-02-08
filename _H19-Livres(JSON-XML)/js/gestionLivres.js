@@ -1,14 +1,12 @@
 // GLOBAL
 var listeLivres=null; 
-
-
 /*
-*
 * ======================================================================
 * Requette Ajax responsable pour aller chercher le fichier XML (livres.xml).
-
+* C'est la porte d'entrée de l'application car:(<body onLoad="chargerXML();">).
+* PARAMETRE: (liste) recoit les donnés de la requete si tout est ok,
+*	... puis l'afecte à (listeLivres) variable global.
 * ======================================================================
-*
 */
 function chargerXML(){
 	$.ajax({
@@ -16,18 +14,16 @@ function chargerXML(){
 		type:"GET",
 		dataType:"xml"
 	}).done (function(liste){
-			//alert(listeLivres); si dataType:"text"
-			listeLivres=liste;
+			//alert(listeLivres); si dataType:"text"			
+			listeLivres = liste;
 	}).fail (function(){
 			alert("ERREUR");
 	});
 }
 /*
-*
 * ======================================================================
 * 
 * ======================================================================
-*
 */
 function listerXML(){
 	var isbn, titre, pages;
