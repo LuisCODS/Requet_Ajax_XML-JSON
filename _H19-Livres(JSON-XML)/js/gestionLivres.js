@@ -2,11 +2,13 @@
 * =============================================================================
 * VAR. GLOBALUX:
 * racineDOM = recoit la reference au DOM par la requete AJAX.
-* tblJsonSize = recoit la taille du tableau JSON dont l'index fait sa reference.
+* tblJsonSize = recoit la taille du tableau JSON dont la page index lui fait
+* ... reference. Donc, le tableau(tblLivresJSON), qui se retrouve dans le fichier
+*... data/livres.js,  est accessible en tout temps!
 * ===============================================================================
 */
 var racineDOM = null; 
-var tblJsonSize = listeLivresJSON.length;
+var tblJsonSize = tblLivresJSON.length;
 /*
 * =============================================================================
 * Requette Ajax responsable pour aller chercher le fichier XML (livres.xml)
@@ -61,24 +63,25 @@ function listerXML()
 	$('#fenetre').toggle();
 }
 /*
-* ======================================================================
-* Puisque le fichier Json fournie un Objet(tableau JSON), car l'index
+* ==========================================================================
+* Puisque le fichier Json fournie un Objet(tableau JSON), car la page index
 * ...lui fait reference, on l'utilise directement en lui demandant par
 * ...exemple sa taille.Puis, on boucle sous les indices du tableau
 * ... pour récuperer les valeur de chaque proprieté de l'indice courant.
-* ======================================================================
+* ==========================================================================
 */
 function listerJSON()
 {	
 	var reponseHTML = "<table border=1>";
 		reponseHTML+="<caption>Liste des livres par JSON</caption>";
+		//Entete
 		reponseHTML+="<tr><th>ISBN</th><th>TITRE</th><th>PAGES</th></tr>";
 		
+	// rattrapage des données par les indices...
 	for (var i = 0; i < tblJsonSize; i++)
-	{	
-		// rattrapage des données par les indices...
+	{			
 		reponseHTML+="<tr>";
-		reponseHTML+="<td>"+listeLivresJSON[i].isbn+"</td><td>"+listeLivresJSON[i].titre+"</td><td>"+listeLivresJSON[i].pages+"</td>";
+		reponseHTML+="<td>"+tblLivresJSON[i].isbn+"</td><td>"+tblLivresJSON[i].titre+"</td><td>"+tblLivresJSON[i].pages+"</td>";
 		reponseHTML+="</tr>";
 	}
 	// on utilise .html à la place de .text car il doit interpreter les tags html
