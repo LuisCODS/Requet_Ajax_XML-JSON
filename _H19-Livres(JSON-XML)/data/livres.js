@@ -5,7 +5,6 @@
 *  <script src="data/livres.js"></script>
 * ======================================================================
 */
-
 var listeLivresJSON =
 [
 	//Les indices...

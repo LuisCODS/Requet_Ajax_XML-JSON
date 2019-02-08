@@ -1,9 +1,10 @@
 // GLOBAL
-var listeLivres=null; 
+var listeLivres = null; 
 /*
 * ======================================================================
-* Requette Ajax responsable pour aller chercher le fichier XML (livres.xml).
-* C'est la porte d'entrée de l'application car:(<body onLoad="chargerXML();">).
+* Requette Ajax responsable pour aller chercher le fichier XML (livres.xml)
+* ... et le charger en memoire. C'est la porte d'entrée de l'application,
+* ...car:(<body onLoad="chargerXML();">).
 * PARAMETRE: (liste) recoit les donnés de la requete si tout est ok,
 *	... puis l'afecte à (listeLivres) variable global.
 * ======================================================================
@@ -15,7 +16,7 @@ function chargerXML(){
 		dataType:"xml"
 	}).done (function(liste){
 			//alert(listeLivres); si dataType:"text"			
-			listeLivres = liste;
+			listeLivres = liste; //afecte la var global
 	}).fail (function(){
 			alert("ERREUR");
 	});
@@ -44,37 +45,35 @@ function listerXML(){
 	$('#fenetre').toggle();
 }
 /*
-*
 * ======================================================================
-*
+* Puisque le fichier Json fournie un Objet(tableau JSON), 
+* ... on l'utilise directement en lui demandant par exemple sa taille.
+* Tel que montré ci-bas! Ensuite, on boucle sous les indices du tableau
+* ... pour récuperer les valeur de chaque proprieté de l'indice courant.
 * ======================================================================
-*
 */
-function listerJSON(){
-	var isbn, titre, pages;
-	var rep="";
-	var taille=listeLivresJSON.length;
-	rep+="<h2>Liste des livres par JSON</h2><br><br>";
-	for (var i=0;i<taille;i++){
-		var unLivre=listeLivresJSON[i];
-		isbn=unLivre.isbn;
-		titre=unLivre.titre;
-		pages=unLivre.pages;
-		rep+="<br>ISBN = "+isbn;
-		rep+="<br>TITRE = "+titre;
-		rep+="<br>PAGES = "+pages;
-		rep+="<br>*****************************";
+function listerJSON()
+{
+	var taille = listeLivresJSON.length;
+	var reponseHTML = "<table border=1>";
+		reponseHTML+="<caption>Liste des livres par JSON</caption>";
+		reponseHTML+="<tr><th>ISBN</th><th>TITRE</th><th>PAGES</th></tr>";
+		
+	for (var i = 0; i < taille; i++)
+	{		
+		reponseHTML+="<tr>";
+		reponseHTML+="<td>"+listeLivresJSON[i].isbn+"</td><td>"+listeLivresJSON[i].titre+"</td><td>"+listeLivresJSON[i].pages+"</td>";
+		reponseHTML+="</tr>";
 	}
-	$('#contenu').html(rep);
+	// on utilise .html à la place de text car il doit interpreter les tags html
+	$('#contenu').html(reponseHTML);
 	$('#fenetre').toggle();
 }
 /*
-*
 * ======================================================================
 * POUR VOUS AMUSER...
 *
 * ======================================================================
-*
 */
 function XMLtoJSON(){
 	rep="[";
