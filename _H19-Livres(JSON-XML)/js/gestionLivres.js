@@ -1,29 +1,30 @@
 /*
-* ======================================================================
-* VAR. GLOBAUX:
-* listeLivres = recoit la reference au DOM par la requete AJAX.
+* =============================================================================
+* VAR. GLOBALUX:
+* racineDOM = recoit la reference au DOM par la requete AJAX.
 * tblJsonSize = recoit la taille du tableau JSON dont l'index fait sa reference.
-* ======================================================================
+* ===============================================================================
 */
-var listeLivres = null; 
+var racineDOM = null; 
 var tblJsonSize = listeLivresJSON.length;
 /*
-* ======================================================================
+* =============================================================================
 * Requette Ajax responsable pour aller chercher le fichier XML (livres.xml)
 * ... et le charger en memoire. C'est la porte d'entrée de l'application,
 * ...car:(<body onLoad="chargerXML();">).
-* PARAMETRE: (liste) recoit les donnés de la requete si tout est ok,
-*	... puis l'afecte à (listeLivres) variable global.
-* ======================================================================
+* PARAMETRE: (xmlDocument) recoit la ref. du DOM de la requete si tout est ok,
+*	... puis l'afecte à (racineDOM) variable global.
+* =============================================================================
 */
 function chargerXML(){
 	$.ajax({
 		url:"data/livres.xml",
 		type:"GET",
 		dataType:"xml"
-	}).done (function(liste){
-			//alert(listeLivres); si dataType:"text"			
-			listeLivres = liste; //afecte la var global(ref. au DOM)
+	}).done (function(xmlDocument){
+			//alert(racineDOM); si dataType:"text"
+			racineDOM = xmlDocument; //racineDOM desormais pointe vers la racine du DOM
+			console.log(racineDOM);
 	}).fail (function(){
 			alert("ERREUR");
 	});
@@ -37,7 +38,7 @@ function chargerXML(){
 function listerXML()
 {
 	var isbn, titre, pages;
-	var tabLivres = listeLivres.getElementsByTagName("livre");
+	var tabLivres = racineDOM.getElementsByTagName("livre");
 	//console.log(tabLivres);//test
 	var taille = tabLivres.length;
 	var rep="";
@@ -92,11 +93,11 @@ function listerJSON()
 */
 function XMLtoJSON(){
 	rep="[";
-	var tabLivres=listeLivres.firstChild.childNodes;
-	while(listeLivres.firstChild.hasChildNodes()){
-		var n=listeLivres.firstChild.firstChild
-		if (listeLivres.firstChild.firstChild.nodeType!=3)
-		   alert(JSON.stringify(listeLivres.firstChild.firstChild.nodeValue));
+	var tabLivres=racineDOM.firstChild.childNodes;
+	while(racineDOM.firstChild.hasChildNodes()){
+		var n=racineDOM.firstChild.firstChild
+		if (racineDOM.firstChild.firstChild.nodeType!=3)
+		   alert(JSON.stringify(racineDOM.firstChild.firstChild.nodeValue));
 			n=n.nextSibling();
 	}
 		
